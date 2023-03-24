@@ -15,6 +15,7 @@ class WatchListTableViewCell: UITableViewCell {
     
     var watch: Watch?
     var delegate: WatchListTableCellDelegate?
+    private let defaultImage = UIImage(named: "Watch")
     
     let cardView: UIView = {
         let cardView = UIView()
@@ -44,15 +45,17 @@ class WatchListTableViewCell: UITableViewCell {
     
     let watchImageView: UIImageView = {
         let watchImageView = UIImageView()
-        watchImageView.image = UIImage(named: "Watch")
         watchImageView.translatesAutoresizingMaskIntoConstraints = false
+        watchImageView.contentMode = .scaleAspectFit
+        watchImageView.clipsToBounds = true
         return watchImageView
     }()
     
     let watchNameLabel: UILabel = {
         let watchNameLabel = UILabel()
         watchNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        watchNameLabel.font = UIFont.systemFont(ofSize: 10)
+        watchNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        watchNameLabel.numberOfLines = 2
         return watchNameLabel
     }()
     
@@ -67,16 +70,16 @@ class WatchListTableViewCell: UITableViewCell {
         let watchDateLabel = UILabel()
         watchDateLabel.translatesAutoresizingMaskIntoConstraints = false
         watchDateLabel.textAlignment = .right
-        watchDateLabel.font = UIFont.systemFont(ofSize: 8)
+        watchDateLabel.font = UIFont.systemFont(ofSize: 12)
         watchDateLabel.textColor = .gray
         return watchDateLabel
     }()
     
-    let namePriceDateStackView: UIStackView = {
+    let namePriceStackView: UIStackView = {
         let namePriceDateStackView = UIStackView()
         namePriceDateStackView.translatesAutoresizingMaskIntoConstraints = false
         namePriceDateStackView.axis = .vertical
-        namePriceDateStackView.spacing = 8
+        namePriceDateStackView.spacing = 5
         namePriceDateStackView.distribution = .fillProportionally
         namePriceDateStackView.alignment = .top
         return namePriceDateStackView
@@ -98,13 +101,14 @@ class WatchListTableViewCell: UITableViewCell {
         self.contentView.addSubview(shadowView)
         self.contentView.addSubview(cardView)
         cardView.addSubview(watchImageView)
-        cardView.addSubview(namePriceDateStackView)
+        cardView.addSubview(namePriceStackView)
         cardView.addSubview(watchLikedImageView)
         
         setupShadowView()
         setupCardView()
         setupWatchImageView()
-        setupNamePriceDateStack()
+        setupWatchCategoryLabel()
+        setupNamePriceStack()
         setupLikedImageView()
         
     }
@@ -127,42 +131,56 @@ class WatchListTableViewCell: UITableViewCell {
     }
     
     func setupWatchImageView() {
+        watchImageView.loadImageFromUrl(watch?.imageUrlString, defaultImage: defaultImage)
+        
+        
+        
         NSLayoutConstraint.activate([
-            watchImageView.topAnchor.constraint(equalTo: cardView.topAnchor),
-            watchImageView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor),
-            watchImageView.leftAnchor.constraint(equalTo: cardView.leftAnchor),
-            watchImageView.heightAnchor.constraint(equalTo: cardView.heightAnchor, multiplier: 1),
-            watchImageView.widthAnchor.constraint(equalTo: watchImageView.heightAnchor, multiplier: 1)
+            watchImageView.topAnchor.constraint(greaterThanOrEqualTo: cardView.topAnchor, constant: 10),
+            watchImageView.bottomAnchor.constraint(lessThanOrEqualTo: cardView.bottomAnchor, constant: -10),
+            watchImageView.leftAnchor.constraint(equalTo: cardView.leftAnchor, constant: 10),
+            watchImageView.widthAnchor.constraint(equalTo: cardView.widthAnchor, multiplier: 0.4),
+            watchImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 100),
+            watchImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor)
         ])
     }
     
-    func setupNamePriceDateStack() {
-        guard let watch = self.watch else {return}
-        watchDate.text = watch.category
-        watchNameLabel.text = watch.name
-        watchPriceLabel.text = watch.priceString
-        print(watch.price)
-        print(watch.priceString)
+    func setupWatchCategoryLabel() {
+        guard let watchCategory = self.watch?.category else {return}
+        watchDate.text = watchCategory.capitalized(with: .current)
         
-        namePriceDateStackView.addArrangedSubview(watchDate)
-        namePriceDateStackView.addArrangedSubview(watchNameLabel)
-        namePriceDateStackView.addArrangedSubview(watchPriceLabel)
+        cardView.addSubview(watchDate)
         
         NSLayoutConstraint.activate([
-            namePriceDateStackView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
-            namePriceDateStackView.leftAnchor.constraint(equalTo: watchImageView.rightAnchor, constant: 10),
-            namePriceDateStackView.rightAnchor.constraint(equalTo: cardView.rightAnchor, constant: -10)
+            watchDate.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
+            watchDate.leftAnchor.constraint(equalTo: watchImageView.rightAnchor, constant: 10),
+            watchDate.rightAnchor.constraint(equalTo: cardView.rightAnchor, constant: -10),
+        ])
+    }
+    
+    func setupNamePriceStack() {
+        guard let watch = self.watch else {return}
+        watchNameLabel.text = watch.name
+        watchPriceLabel.text = watch.priceString
+        
+        namePriceStackView.addArrangedSubview(watchNameLabel)
+        namePriceStackView.addArrangedSubview(watchPriceLabel)
+        
+        NSLayoutConstraint.activate([
+            namePriceStackView.topAnchor.constraint(equalTo: watchDate.bottomAnchor, constant: 10),
+            namePriceStackView.leftAnchor.constraint(equalTo: watchImageView.rightAnchor, constant: 10),
+            namePriceStackView.rightAnchor.constraint(equalTo: cardView.rightAnchor, constant: -10)
         ])
     }
     
     func setupLikedImageView() {
         NSLayoutConstraint.activate([
-            watchLikedImageView.topAnchor.constraint(lessThanOrEqualTo: namePriceDateStackView.bottomAnchor, constant: 20),
+            watchLikedImageView.topAnchor.constraint(equalTo: namePriceStackView.bottomAnchor, constant: 20),
             watchLikedImageView.leftAnchor.constraint(greaterThanOrEqualTo: watchImageView.rightAnchor, constant: 10),
             watchLikedImageView.rightAnchor.constraint(equalTo: cardView.rightAnchor, constant: -10),
-            watchLikedImageView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -10),
+            watchLikedImageView.bottomAnchor.constraint(lessThanOrEqualTo: cardView.bottomAnchor, constant: -10),
             watchLikedImageView.heightAnchor.constraint(equalToConstant: 20),
-            watchLikedImageView.widthAnchor.constraint(equalToConstant: 20),
+            watchLikedImageView.widthAnchor.constraint(equalTo: watchLikedImageView.heightAnchor),
         ])
     }
     
