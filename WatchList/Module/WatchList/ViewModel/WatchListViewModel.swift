@@ -12,7 +12,6 @@ protocol WatchListDelegate {
 }
 
 class WatchListViewModel {
-    private let baseUrl = "https://fakestoreapi.com/products"
     private var getAPIService: GetAPIProtocol
     var watchList: [Watch]?
     private var errorMessage: String?
@@ -21,7 +20,7 @@ class WatchListViewModel {
     
     init(getAPIService: GetAPIProtocol = GetAPIService()) {
         self.getAPIService = getAPIService
-        self.getAPIService.setUrl(with: baseUrl)
+        self.getAPIService.setUrl(with: Constant.baseUrlString)
     }
     
     func getWatchList() {

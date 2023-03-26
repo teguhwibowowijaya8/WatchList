@@ -9,28 +9,28 @@ import UIKit
 
 class NamePriceTableViewCell: UITableViewCell {
     
-    var name: String?
-    var price: Double?
-
-    var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
+        stackView.alignment = .top
+        stackView.spacing = 10
         return stackView
     }()
     
-    var nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = UIFont.systemFont(ofSize: 18)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        nameLabel.numberOfLines = 0
+        nameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return nameLabel
     }()
     
-    var priceLabel: UILabel = {
+    private lazy var priceLabel: UILabel = {
         let priceLabel = UILabel()
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        priceLabel.font = UIFont.boldSystemFont(ofSize: 18)
         priceLabel.textAlignment = .right
+        priceLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return priceLabel
     }()
     
@@ -39,16 +39,15 @@ class NamePriceTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setupCell() {
-        self.addSubview(stackView)
+    func setupCell(watchName: String, watchPrice: String) {
+        nameLabel.text = watchName
+        priceLabel.text = watchPrice
+        
         setupStackView()
     }
     
-    func setupStackView() {
-        guard let name = self.name, let price = self.price else {return}
-        nameLabel.text = name
-        priceLabel.text = "Rp. \(price)"
-        
+    private func setupStackView() {
+        self.addSubview(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(priceLabel)
         
@@ -56,7 +55,7 @@ class NamePriceTableViewCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 14),
             stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 28),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -28),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6)
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -6)
         ])
     }
     

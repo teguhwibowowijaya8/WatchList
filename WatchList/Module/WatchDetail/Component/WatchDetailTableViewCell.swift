@@ -17,7 +17,7 @@ class WatchDetailTableViewCell: UITableViewCell {
     var isLiked: Bool?
     
     
-    var typeDetailLabel: UILabel = {
+    private lazy var typeDetailLabel: UILabel = {
         let typeDetailLabel = UILabel()
         typeDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         typeDetailLabel.font = UIFont.systemFont(ofSize: 12)
@@ -25,7 +25,7 @@ class WatchDetailTableViewCell: UITableViewCell {
         return typeDetailLabel
     }()
     
-    var detailProductLabel: UILabel = {
+    private lazy var detailProductLabel: UILabel = {
         let detailProductLabel = UILabel()
         detailProductLabel.translatesAutoresizingMaskIntoConstraints = false
         detailProductLabel.font = UIFont.systemFont(ofSize: 12)
@@ -33,7 +33,7 @@ class WatchDetailTableViewCell: UITableViewCell {
         return detailProductLabel
     }()
     
-    var isLikedButton: UIButton = {
+    private lazy var isLikedButton: UIButton = {
         let isLikedButton = UIButton()
         isLikedButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         isLikedButton.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class WatchDetailTableViewCell: UITableViewCell {
         return isLikedButton
     }()
     
-    var descriptionTextView: UITextView = {
+    private lazy var descriptionTextView: UITextView = {
         let descriptionTextView = UITextView()
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextView.isEditable = false
@@ -64,7 +64,6 @@ class WatchDetailTableViewCell: UITableViewCell {
     func setupCell() {
         self.addSubview(typeDetailLabel)
         self.addSubview(detailProductLabel)
-//        self.addSubview(isLikedButton)
         self.addSubview(descriptionTextView)
         
         if showDescription {
@@ -72,7 +71,7 @@ class WatchDetailTableViewCell: UITableViewCell {
         } else { setupDetailLabels() }
     }
     
-    func setupDescriptionTextView() {
+    private func setupDescriptionTextView() {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
         descriptionTextView.attributedText = NSAttributedString(string: detailProductText ?? "", attributes: [
@@ -90,7 +89,7 @@ class WatchDetailTableViewCell: UITableViewCell {
         
     }
     
-    func setupDetailLabels() {
+    private func setupDetailLabels() {
         guard let typeDetailText = typeDetailText, let detailProductText = detailProductText else {return}
         
         typeDetailLabel.text = typeDetailText
@@ -99,13 +98,12 @@ class WatchDetailTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             typeDetailLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             typeDetailLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
-            typeDetailLabel.rightAnchor.constraint(equalTo: detailProductLabel.leftAnchor),
+            typeDetailLabel.rightAnchor.constraint(equalTo: detailProductLabel.leftAnchor, constant: 8),
             typeDetailLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
-            typeDetailLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80),
+            typeDetailLabel.widthAnchor.constraint(equalToConstant: 80),
             
             
             detailProductLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
-            detailProductLabel.leftAnchor.constraint(equalTo: typeDetailLabel.rightAnchor, constant: 30),
             //            detailProductLabel.rightAnchor.constraint(equalTo: self.leftAnchor),
             detailProductLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             

@@ -54,7 +54,7 @@ class WatchListTableViewCell: UITableViewCell {
     let watchNameLabel: UILabel = {
         let watchNameLabel = UILabel()
         watchNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        watchNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        watchNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
         watchNameLabel.numberOfLines = 2
         return watchNameLabel
     }()
@@ -62,7 +62,7 @@ class WatchListTableViewCell: UITableViewCell {
     let watchPriceLabel: UILabel = {
         let watchPriceLabel = UILabel()
         watchPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        watchPriceLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        watchPriceLabel.font = UIFont.boldSystemFont(ofSize: 14)
         return watchPriceLabel
     }()
     
@@ -134,12 +134,11 @@ class WatchListTableViewCell: UITableViewCell {
         watchImageView.loadImageFromUrl(watch?.imageUrlString, defaultImage: defaultImage)
         
         
-        
         NSLayoutConstraint.activate([
             watchImageView.topAnchor.constraint(greaterThanOrEqualTo: cardView.topAnchor, constant: 10),
             watchImageView.bottomAnchor.constraint(lessThanOrEqualTo: cardView.bottomAnchor, constant: -10),
             watchImageView.leftAnchor.constraint(equalTo: cardView.leftAnchor, constant: 10),
-            watchImageView.widthAnchor.constraint(equalTo: cardView.widthAnchor, multiplier: 0.4),
+            watchImageView.widthAnchor.constraint(equalTo: cardView.widthAnchor, multiplier: 0.3),
             watchImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 100),
             watchImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor)
         ])

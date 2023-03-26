@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7AB4AEA329D053E2004D3DFD /* WatchDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AEA229D053E2004D3DFD /* WatchDetail.swift */; };
+		7AB4AEA629D05A2E004D3DFD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AEA529D05A2E004D3DFD /* Constant.swift */; };
 		7AC6AC0F29CD785B0014CAF7 /* WatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC0E29CD785B0014CAF7 /* WatchListViewModel.swift */; };
 		7AC6AC1129CD78780014CAF7 /* WatchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC1029CD78780014CAF7 /* WatchDetailViewModel.swift */; };
 		7AC6AC1429CD7ACB0014CAF7 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC1329CD7ACB0014CAF7 /* Rating.swift */; };
@@ -30,9 +32,13 @@
 		7ADC47EF29A36F3E00B79E69 /* WatchDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EE29A36F3E00B79E69 /* WatchDetailHeaderView.swift */; };
 		7ADC47F129A4609200B79E69 /* StuffStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC47F029A4609200B79E69 /* StuffStoryboard.storyboard */; };
 		7ADC47F329A460BA00B79E69 /* StuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47F229A460BA00B79E69 /* StuffViewController.swift */; };
+		7AFA0B9329D01ED900789A2E /* WatchDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA0B9229D01ED900789A2E /* WatchDetails.swift */; };
+		7AFA0B9529D020E300789A2E /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA0B9429D020E300789A2E /* Weight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7AB4AEA229D053E2004D3DFD /* WatchDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetail.swift; sourceTree = "<group>"; };
+		7AB4AEA529D05A2E004D3DFD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7AC6AC0E29CD785B0014CAF7 /* WatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewModel.swift; sourceTree = "<group>"; };
 		7AC6AC1029CD78780014CAF7 /* WatchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailViewModel.swift; sourceTree = "<group>"; };
 		7AC6AC1329CD7ACB0014CAF7 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -58,6 +64,8 @@
 		7ADC47EE29A36F3E00B79E69 /* WatchDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailHeaderView.swift; sourceTree = "<group>"; };
 		7ADC47F029A4609200B79E69 /* StuffStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StuffStoryboard.storyboard; sourceTree = "<group>"; };
 		7ADC47F229A460BA00B79E69 /* StuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewController.swift; sourceTree = "<group>"; };
+		7AFA0B9229D01ED900789A2E /* WatchDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetails.swift; sourceTree = "<group>"; };
+		7AFA0B9429D020E300789A2E /* Weight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AB4AEA429D05A1D004D3DFD /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4AEA529D05A2E004D3DFD /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
 		7AC6AC0329CD76E00014CAF7 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +125,7 @@
 		7AC6AC0929CD77F40014CAF7 /* WatchDetail */ = {
 			isa = PBXGroup;
 			children = (
+				7AFA0B9129D01ECF00789A2E /* Model */,
 				7AC6AC0C29CD78280014CAF7 /* ViewModel */,
 				7AC6AC0A29CD78060014CAF7 /* View */,
 				7AC6AC0B29CD780D0014CAF7 /* Component */,
@@ -192,6 +209,7 @@
 				7ADC47DA29A3221600B79E69 /* MainDelegate */,
 				7ADC47DE29A3226A00B79E69 /* Asset */,
 				7AC6AC1D29CD89E50014CAF7 /* Extension */,
+				7AB4AEA429D05A1D004D3DFD /* Constant */,
 				7AC6AC1229CD78B60014CAF7 /* Networking */,
 				7ADC47DD29A3225300B79E69 /* Model */,
 				7ADC47DC29A3223C00B79E69 /* Module */,
@@ -244,6 +262,16 @@
 				7ADC47CF29A3218300B79E69 /* Assets.xcassets */,
 			);
 			path = Asset;
+			sourceTree = "<group>";
+		};
+		7AFA0B9129D01ECF00789A2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7AFA0B9229D01ED900789A2E /* WatchDetails.swift */,
+				7AB4AEA229D053E2004D3DFD /* WatchDetail.swift */,
+				7AFA0B9429D020E300789A2E /* Weight.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,12 +348,15 @@
 			files = (
 				7ADC47CB29A3218100B79E69 /* WatchListViewController.swift in Sources */,
 				7AC6AC1629CD7CD20014CAF7 /* FetchDataService.swift in Sources */,
+				7AB4AEA329D053E2004D3DFD /* WatchDetail.swift in Sources */,
 				7ADC47E129A32CE000B79E69 /* WatchListTableViewCell.swift in Sources */,
 				7AC6AC1129CD78780014CAF7 /* WatchDetailViewModel.swift in Sources */,
 				7AC6AC1F29CD8A190014CAF7 /* UIImageView+loadImageFromUrl.swift in Sources */,
+				7AFA0B9529D020E300789A2E /* Weight.swift in Sources */,
 				7ADC47F329A460BA00B79E69 /* StuffViewController.swift in Sources */,
 				7ADC47C729A3218100B79E69 /* AppDelegate.swift in Sources */,
 				7AC6AC1C29CD89CC0014CAF7 /* GetImageService.swift in Sources */,
+				7AB4AEA629D05A2E004D3DFD /* Constant.swift in Sources */,
 				7ADC47ED29A3636F00B79E69 /* WatchDetailTableViewCell.swift in Sources */,
 				7AC6AC1829CD80740014CAF7 /* ParseDataService.swift in Sources */,
 				7AC6AC1429CD7ACB0014CAF7 /* Rating.swift in Sources */,
@@ -336,6 +367,7 @@
 				7ADC47E929A3634D00B79E69 /* NamePriceTableViewCell.swift in Sources */,
 				7AC6AC0F29CD785B0014CAF7 /* WatchListViewModel.swift in Sources */,
 				7ADC47EB29A3635E00B79E69 /* WatchImageTableViewCell.swift in Sources */,
+				7AFA0B9329D01ED900789A2E /* WatchDetails.swift in Sources */,
 				7ADC47E729A3543C00B79E69 /* WatchDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

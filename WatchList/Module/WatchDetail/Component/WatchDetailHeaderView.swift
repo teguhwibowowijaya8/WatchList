@@ -8,7 +8,7 @@
 import UIKit
 
 class WatchDetailHeaderView: UITableViewHeaderFooterView {
-    private let title: UILabel = {
+    private lazy var title: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.text = "Detail Product"
@@ -16,7 +16,7 @@ class WatchDetailHeaderView: UITableViewHeaderFooterView {
         return title
     }()
     
-    private let separatorView: UIView = {
+    private lazy var separatorView: UIView = {
         let separatorView = UIView()
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
@@ -28,18 +28,16 @@ class WatchDetailHeaderView: UITableViewHeaderFooterView {
         self.addSubview(title)
         self.addSubview(separatorView)
         
+        setupComponentsConstraints()
+    }
+    
+    private func setupComponentsConstraints() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
             title.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: 30),
-//            title.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 12)
-        ])
-        
-        setupSeparatorView()
-    }
-    
-    private func setupSeparatorView() {
-        NSLayoutConstraint.activate([
+            
+            
             separatorView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             separatorView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
             separatorView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),

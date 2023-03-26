@@ -9,7 +9,8 @@ import UIKit
 
 class WatchDetailViewController: UIViewController {
     
-    var watchDetail: Watch?
+    var watchId: Int?
+    var watchDetailViewModel: WatchDetailViewModel?
     
     let watchDetailTableView: UITableView = {
         let watchDetailTableView = UITableView()
@@ -27,6 +28,7 @@ class WatchDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupViewController()
+        setupViewModel()
         setupTableView()
     }
     
@@ -34,6 +36,13 @@ class WatchDetailViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    
+    func setupViewModel() {
+        guard let watchId = watchId else { return }
+        watchDetailViewModel = WatchDetailViewModel(watchId: watchId)
+        watchDetailViewModel?.delegate = self
+        watchDetailViewModel?.getWatchDetail()
     }
     
     func setupTableView() {
@@ -64,57 +73,46 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
         case 0,1:
             return 1
         case 2:
-            return 6
+            return watchDetailViewModel?.details?.count ?? 0
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let watch = self.watchDetail else {return UITableViewCell()}
+        guard let watch = watchDetailViewModel?.watchDetail?.watch else {return UITableViewCell()}
         
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "WatchImageTableViewCell", for: indexPath) as? WatchImageTableViewCell else {return UITableViewCell()}
             
-            cell.setupCell()
+            cell.setupCell(imageUrlString: watch.imageUrlString, watchType: watch.category)
             
             return cell
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "NamePriceTableViewCell", for: indexPath) as? NamePriceTableViewCell else {return UITableViewCell()}
             
-            cell.name = watch.name
-            cell.price = watch.price
-            cell.setupCell()
+            cell.setupCell(watchName: watch.name, watchPrice: watch.priceString)
             
             return cell
             
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "WatchDetailTableViewCell", for: indexPath) as? WatchDetailTableViewCell else {return UITableViewCell()}
+            guard let detail = watchDetailViewModel?.details?[indexPath.row],
+                let cell = tableView.dequeueReusableCell(withIdentifier: "WatchDetailTableViewCell", for: indexPath) as? WatchDetailTableViewCell else {return UITableViewCell()}
             
-            switch indexPath.row {
-            case 0:
+            if indexPath.row == 0 {
                 cell.showIsLikedButton = true
-                cell.typeDetailText = "Stock"
-                cell.detailProductText = "20"
-            case 1:
-                cell.typeDetailText = "Size"
-                cell.detailProductText = "-"
-            case 2:
-                cell.typeDetailText = "Weight"
-                cell.detailProductText = "100 gram"
-            case 3:
-                cell.typeDetailText = "Type"
-                cell.detailProductText = "Accessoris"
-            case 4:
-                cell.typeDetailText = "Description"
-                cell.detailProductText = " "
-            case 5:
+            } else { cell.showIsLikedButton = false }
+            
+            
+            if detail.type == .descriptionBody {
                 cell.showDescription = true
-                cell.detailProductText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et integer turpis fermentum pulvinar adipiscing accumsan, dignissim viverra. Quisque hendrerit ac ipsum, malesuada odio netus. Eu, mauris ullamcorper neque ullamcorper arcu. Amet, condimentum adipiscing enim eu feugiat feugiat pharetra, tristique. Interdum ipsum amet, a nec. Fermentum in viverra suscipit at at sit. Metus condimentum augue erat."
-            default:
-                break
+                cell.detailProductText = detail.value
+            } else {
+                cell.showDescription = false
+                cell.typeDetailText = detail.type.rawValue
+                cell.detailProductText = detail.value
             }
             
             cell.setupCell()
@@ -148,5 +146,13 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
         if section == 2 {
             return 20
         } else {return 0}
+    }
+}
+
+extension WatchDetailViewController: WatchDetailProtocol {
+    func onGetWatchDetailCompleted() {
+        DispatchQueue.main.async {
+            self.watchDetailTableView.reloadData()
+        }
     }
 }

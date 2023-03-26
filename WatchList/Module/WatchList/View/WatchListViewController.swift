@@ -21,28 +21,41 @@ class WatchListViewController: UIViewController {
     let logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.image = UIImage(named: "Logo")
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.contentMode = .scaleAspectFit
         
         return logoImageView
+    }()
+    
+    let containerView: UIView = {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.backgroundColor = .white
+        return containerView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 1, green: 0.781, blue: 0.802, alpha: 1)
         setupNavigationLogo()
         setupViewModel()
         setupTableView()
+        setupContainerView()
     }
 
     func setupNavigationLogo() {
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 1, green: 0.781, blue: 0.802, alpha: 1)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: logoImageView)
+    }
+    
+    func setupContainerView() {
+        self.view.addSubview(containerView)
+        self.view.sendSubviewToBack(containerView)
         
         NSLayoutConstraint.activate([
-            logoImageView.widthAnchor.constraint(equalToConstant: 181),
-            logoImageView.heightAnchor.constraint(equalToConstant: 90)
+            containerView.topAnchor.constraint(equalTo: watchListTableView.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            containerView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
     }
     
@@ -57,6 +70,7 @@ class WatchListViewController: UIViewController {
         
         watchListTableView.delegate = self
         watchListTableView.dataSource = self
+        watchListTableView.separatorStyle = .none
         
         watchListTableView.register(WatchListTableViewCell.self, forCellReuseIdentifier: "WatchListTableViewCell")
         
@@ -101,7 +115,7 @@ extension WatchListViewController: WatchListDelegate {
 extension WatchListViewController: WatchListTableCellDelegate {
     func onWatchCellClicked(on watch: Watch) {
         let watchDetailVC = WatchDetailViewController()
-        watchDetailVC.watchDetail = watch
+        watchDetailVC.watchId = watch.id
         navigationItem.backButtonTitle = watch.name
         navigationController?.pushViewController(watchDetailVC, animated: true)
         

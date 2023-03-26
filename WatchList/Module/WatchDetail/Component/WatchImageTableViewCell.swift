@@ -9,25 +9,34 @@ import UIKit
 
 class WatchImageTableViewCell: UITableViewCell {
     
-    var watchImage = "Watch"
+    private let defaultImage = UIImage(named: "Watch")
     
-    let watchImageView: UIImageView = {
+    private lazy var containerView: UIView = {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.layer.borderWidth = 0.5
+        containerView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        containerView.layer.cornerRadius = 10
+        containerView.clipsToBounds = true
+        return containerView
+    }()
+    
+    private lazy var watchImageView: UIImageView = {
         let watchImageView = UIImageView()
         watchImageView.translatesAutoresizingMaskIntoConstraints = false
-        watchImageView.layer.cornerRadius = 10
         watchImageView.layer.masksToBounds = true
-        watchImageView.contentMode = .scaleAspectFill
+        watchImageView.contentMode = .scaleAspectFit
         return watchImageView
     }()
     
-    let bottomImageView: UIView = {
-        let bottomImageView = UIView()
-        bottomImageView.backgroundColor = .black.withAlphaComponent(0.3)
-        bottomImageView.translatesAutoresizingMaskIntoConstraints = false
-        return bottomImageView
+    private lazy var bottomLabelContainerView: UIView = {
+        let bottomLabelContainerView = UIView()
+        bottomLabelContainerView.backgroundColor = .black.withAlphaComponent(0.5)
+        bottomLabelContainerView.translatesAutoresizingMaskIntoConstraints = false
+        return bottomLabelContainerView
     }()
     
-    let bottomImageLabel: UILabel = {
+    private lazy var bottomImageLabel: UILabel = {
         let bottomImageLabel = UILabel()
         bottomImageLabel.translatesAutoresizingMaskIntoConstraints = false
         bottomImageLabel.textColor = .white
@@ -40,45 +49,46 @@ class WatchImageTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setupCell() {
-        self.addSubview(watchImageView)
-        watchImageView.addSubview(bottomImageView)
-        bottomImageView.addSubview(bottomImageLabel)
+    func setupCell(imageUrlString: String, watchType: String) {
+        watchImageView.loadImageFromUrl(imageUrlString, defaultImage: defaultImage)
+        bottomImageLabel.text = watchType.capitalized(with: .current)
         
-        setupWatchImage()
-        setupBottomView()
-        setupBottomLabel()
+        self.addSubview(containerView)
+        containerView.addSubview(watchImageView)
+        containerView.addSubview(bottomLabelContainerView)
+        bottomLabelContainerView.addSubview(bottomImageLabel)
+        
+        
+        setupComponentsConstraints()
     }
     
-    func setupWatchImage() {
-        watchImageView.image = UIImage(named: watchImage)
-        
+    private func setupComponentsConstraints() {
         NSLayoutConstraint.activate([
-            watchImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 25),
-            watchImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 18),
-            watchImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -18),
-            watchImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -14),
-            watchImageView.heightAnchor.constraint(equalToConstant: 200)
-        ])
-    }
-    
-    func setupBottomView() {
-        NSLayoutConstraint.activate([
-            bottomImageView.bottomAnchor.constraint(equalTo: watchImageView.bottomAnchor),
-            bottomImageView.leftAnchor.constraint(equalTo: watchImageView.leftAnchor),
-            bottomImageView.rightAnchor.constraint(equalTo: watchImageView.rightAnchor),
-            bottomImageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-    
-    func setupBottomLabel() {
-        bottomImageLabel.text = "Bagian Depan"
-        
-        NSLayoutConstraint.activate([
-            bottomImageView.topAnchor.constraint(equalTo: bottomImageView.topAnchor, constant: 10),
-            bottomImageLabel.bottomAnchor.constraint(equalTo: bottomImageView.bottomAnchor, constant: -10),
-            bottomImageLabel.leftAnchor.constraint(equalTo: bottomImageView.leftAnchor, constant: 10),
-            bottomImageLabel.rightAnchor.constraint(equalTo: bottomImageView.rightAnchor, constant: -10)
+            
+            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 25),
+            containerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 18),
+            containerView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -18),
+            containerView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: -14),
+            
+            
+            watchImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            watchImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 10),
+            watchImageView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -10),
+            watchImageView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -10),
+            watchImageView.heightAnchor.constraint(equalToConstant: 200),
+            
+            
+            bottomLabelContainerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            bottomLabelContainerView.leftAnchor.constraint(equalTo: containerView.leftAnchor),
+            bottomLabelContainerView.rightAnchor.constraint(equalTo: containerView.rightAnchor),
+//            bottomLabelContainerView.heightAnchor.constraint(equalToConstant: 40),
+            
+            
+            bottomImageLabel.topAnchor.constraint(greaterThanOrEqualTo: bottomLabelContainerView.topAnchor, constant: 10),
+            bottomImageLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomLabelContainerView.bottomAnchor, constant: -10),
+            bottomImageLabel.leftAnchor.constraint(equalTo: bottomLabelContainerView.leftAnchor, constant: 10),
+            bottomImageLabel.rightAnchor.constraint(equalTo: bottomLabelContainerView.rightAnchor, constant: -10),
+            bottomImageLabel.centerYAnchor.constraint(equalTo: bottomLabelContainerView.centerYAnchor)
         ])
     }
     
