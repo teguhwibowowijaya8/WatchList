@@ -52,20 +52,20 @@ class DetailImageView: UIView {
         bottomImageLabel.text = productCategory.capitalized(with: .current)
     }
     
-    func setupSelfAttributes() {
+    private func setupSelfAttributes() {
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
     }
     
-    func addSubviews() {
+    private func addSubviews() {
         self.addSubview(productImageView)
         self.addSubview(bottomImageLabelContainerView)
         bottomImageLabelContainerView.addSubview(bottomImageLabel)
     }
     
-    func setupComponentsConstraints() {
+    private func setupComponentsConstraints() {
         NSLayoutConstraint.activate([
             
             productImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),

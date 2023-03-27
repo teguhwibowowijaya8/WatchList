@@ -17,7 +17,7 @@ class WatchListTableViewCell: UITableViewCell {
     var delegate: WatchListTableCellDelegate?
     private let defaultImage = UIImage(named: "Watch")
     
-    let cardView: UIView = {
+    private lazy var cardView: UIView = {
         let cardView = UIView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
         cardView.backgroundColor = .white
@@ -29,7 +29,7 @@ class WatchListTableViewCell: UITableViewCell {
         return cardView
     }()
     
-    let shadowView: UIView = {
+    private lazy var shadowView: UIView = {
         let shadowView = UIView()
         shadowView.translatesAutoresizingMaskIntoConstraints = false
         shadowView.layer.masksToBounds = false
@@ -43,7 +43,7 @@ class WatchListTableViewCell: UITableViewCell {
         return shadowView
     }()
     
-    let watchImageView: UIImageView = {
+    private lazy var watchImageView: UIImageView = {
         let watchImageView = UIImageView()
         watchImageView.translatesAutoresizingMaskIntoConstraints = false
         watchImageView.contentMode = .scaleAspectFit
@@ -51,7 +51,7 @@ class WatchListTableViewCell: UITableViewCell {
         return watchImageView
     }()
     
-    let watchNameLabel: UILabel = {
+    private lazy var watchNameLabel: UILabel = {
         let watchNameLabel = UILabel()
         watchNameLabel.translatesAutoresizingMaskIntoConstraints = false
         watchNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
@@ -59,14 +59,14 @@ class WatchListTableViewCell: UITableViewCell {
         return watchNameLabel
     }()
     
-    let watchPriceLabel: UILabel = {
+    private lazy var watchPriceLabel: UILabel = {
         let watchPriceLabel = UILabel()
         watchPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         watchPriceLabel.font = UIFont.boldSystemFont(ofSize: 14)
         return watchPriceLabel
     }()
     
-    let watchDate: UILabel = {
+    private lazy var watchDate: UILabel = {
         let watchDateLabel = UILabel()
         watchDateLabel.translatesAutoresizingMaskIntoConstraints = false
         watchDateLabel.textAlignment = .right
@@ -75,7 +75,7 @@ class WatchListTableViewCell: UITableViewCell {
         return watchDateLabel
     }()
     
-    let namePriceStackView: UIStackView = {
+    private lazy var namePriceStackView: UIStackView = {
         let namePriceDateStackView = UIStackView()
         namePriceDateStackView.translatesAutoresizingMaskIntoConstraints = false
         namePriceDateStackView.axis = .vertical
@@ -85,7 +85,7 @@ class WatchListTableViewCell: UITableViewCell {
         return namePriceDateStackView
     }()
     
-    let watchLikedImageView: UIImageView = {
+    private lazy var watchLikedImageView: UIImageView = {
         let watchImageView = UIImageView()
         watchImageView.translatesAutoresizingMaskIntoConstraints = false
         return watchImageView
@@ -112,7 +112,7 @@ class WatchListTableViewCell: UITableViewCell {
         
     }
     
-    func setupCardView() {
+    private func setupCardView() {
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             cardView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
@@ -129,7 +129,7 @@ class WatchListTableViewCell: UITableViewCell {
         delegate?.onWatchCellClicked(on: watch)
     }
     
-    func setupWatchImageView() {
+    private func setupWatchImageView() {
         watchImageView.loadImageFromUrl(watch?.imageUrlString, defaultImage: defaultImage)
         
         
@@ -143,7 +143,7 @@ class WatchListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setupWatchCategoryLabel() {
+    private func setupWatchCategoryLabel() {
         guard let watchCategory = self.watch?.category else {return}
         watchDate.text = watchCategory.capitalized(with: .current)
         
@@ -156,7 +156,7 @@ class WatchListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setupNamePriceStack() {
+    private func setupNamePriceStack() {
         guard let watch = self.watch else {return}
         watchNameLabel.text = watch.name
         watchPriceLabel.text = watch.priceString
@@ -171,7 +171,7 @@ class WatchListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setupLikedImageView() {
+    private func setupLikedImageView() {
         guard let watchIsLiked = self.watch?.isLiked else {return}
         watchLikedImageView.image = UIImage(systemName: watchIsLiked ?
                                        "heart.fill" : "heart")
@@ -186,7 +186,7 @@ class WatchListTableViewCell: UITableViewCell {
         ])
     }
     
-    func setupShadowView() {
+    private func setupShadowView() {
         NSLayoutConstraint.activate([
             shadowView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             shadowView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),

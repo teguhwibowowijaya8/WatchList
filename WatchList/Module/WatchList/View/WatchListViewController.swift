@@ -11,14 +11,14 @@ class WatchListViewController: UIViewController {
     
     var watchListViewModel: WatchListViewModel?
     
-    let watchListTableView: UITableView = {
+    private lazy var watchListTableView: UITableView = {
         let watchListTablewView = UITableView()
         watchListTablewView.translatesAutoresizingMaskIntoConstraints = false
         watchListTablewView.separatorStyle = .none
         return watchListTablewView
     }()
     
-    let logoImageView: UIImageView = {
+    private lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.image = UIImage(named: "Logo")
         logoImageView.contentMode = .scaleAspectFit
@@ -26,7 +26,7 @@ class WatchListViewController: UIViewController {
         return logoImageView
     }()
     
-    let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .white
@@ -43,11 +43,11 @@ class WatchListViewController: UIViewController {
         setupContainerView()
     }
 
-    func setupNavigationLogo() {
+    private func setupNavigationLogo() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: logoImageView)
     }
     
-    func setupContainerView() {
+    private func setupContainerView() {
         self.view.addSubview(containerView)
         self.view.sendSubviewToBack(containerView)
         
@@ -59,13 +59,13 @@ class WatchListViewController: UIViewController {
         ])
     }
     
-    func setupViewModel() {
+    private func setupViewModel() {
         watchListViewModel = WatchListViewModel()
         watchListViewModel?.delegate = self
         watchListViewModel?.getWatchList()
     }
 
-    func setupTableView() {
+    private func setupTableView() {
         view.addSubview(watchListTableView)
         
         watchListTableView.delegate = self
