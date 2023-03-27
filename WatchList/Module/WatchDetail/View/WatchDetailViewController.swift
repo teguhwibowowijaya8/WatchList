@@ -19,19 +19,38 @@ class WatchDetailViewController: UIViewController {
         return watchDetailTableView
     }()
     
+    private lazy var shareButton: UIButton = {
+        let shareButton = UIButton(type: .system)
+        let shareImage = UIImage(named: "Share")
+        
+        shareButton.setImage(shareImage, for: .normal)
+        
+        NSLayoutConstraint.activate([
+            shareButton.widthAnchor.constraint(equalToConstant: 30),
+            shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor)
+        ])
+        
+        shareButton.addTarget(self, action: #selector(onBackButtonSelected), for: .touchUpInside)
+        
+        return shareButton
+    }()
+    
     private lazy var rightBarButtonItem: UIBarButtonItem = {
         let rightBarButtonItem = UIBarButtonItem()
-        rightBarButtonItem.image = UIImage(named: "Share")
         return rightBarButtonItem
     }()
     
     private lazy var backButton: UIButton = {
         let backButton = UIButton(type: .system)
         let backImage = UIImage(systemName: "chevron.left")
+        
         backButton.setImage(backImage, for: .normal)
         backButton.setTitle("Back", for: .normal)
         backButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backButton.contentHorizontalAlignment = .left
+        
         backButton.addTarget(self, action: #selector(onBackButtonSelected), for: .touchUpInside)
+        
         return backButton
     }()
     
@@ -43,7 +62,8 @@ class WatchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        setupViewController()
+        view.backgroundColor = .white
+        setupNavigationBarItems()
         setupViewModel()
         setupTableView()
     }
@@ -56,26 +76,27 @@ class WatchDetailViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupViewController() {
-        view.backgroundColor = .white
+    private func setupNavigationBarItems() {
         navigationController?.navigationBar.tintColor = .black
         
+        navigationItem.leftItemsSupplementBackButton = false
         backButton.setTitle(" \(productName ?? "Back")", for: .normal)
         leftBarButtonItem.customView = backButton
+        navigationItem.setLeftBarButton(leftBarButtonItem, animated: true)
         
-        self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: true)
-        
+        rightBarButtonItem.customView = shareButton
         navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
     }
     
-    func setupViewModel() {
+    
+    private func setupViewModel() {
         guard let productId = productId else { return }
         watchDetailViewModel = WatchDetailViewModel(productId: productId)
         watchDetailViewModel?.delegate = self
         watchDetailViewModel?.getWatchDetail()
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         view.addSubview(watchDetailTableView)
         
         watchDetailTableView.register(DetailHeaderTableViewCell.self, forCellReuseIdentifier: "DetailHeaderTableViewCell")
@@ -132,7 +153,7 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
         case 1:
             guard let detail = watchDetailViewModel?.details?[indexPath.row],
-                let bodyCell = tableView.dequeueReusableCell(withIdentifier: "DetailBodyTableViewCell", for: indexPath) as? DetailBodyTableViewCell else {return UITableViewCell()}
+                  let bodyCell = tableView.dequeueReusableCell(withIdentifier: "DetailBodyTableViewCell", for: indexPath) as? DetailBodyTableViewCell else {return UITableViewCell()}
             
             if detail.type == .descriptionBody {
                 bodyCell.showDescription = true

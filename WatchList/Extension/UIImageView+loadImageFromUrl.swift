@@ -6,12 +6,9 @@
 //
 
 import UIKit
-import SkeletonView
 
 extension UIImageView {
     func loadImageFromUrl(_ url: String?, defaultImage: UIImage?) {
-        self.isSkeletonable = true
-        self.showAnimatedGradientSkeleton()
         let getImageService = GetImageService()
         
         getImageService.getImage(of: url) { resultImage, errorMessage in
@@ -26,8 +23,6 @@ extension UIImageView {
             
             DispatchQueue.main.async {
                 self.image = selfImage
-                self.stopSkeletonAnimation()
-                self.hideSkeleton()
             }
         }
     }
