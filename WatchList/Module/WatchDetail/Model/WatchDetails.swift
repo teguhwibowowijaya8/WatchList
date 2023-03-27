@@ -19,7 +19,7 @@ struct WatchDetails {
             WatchDetail(type: .size, value: size),
             WatchDetail(type: .weight, value: weight?.weightString),
             WatchDetail(type: .rating, value: "\(watch.rating.rate)"),
-            WatchDetail(type: .ratedBy, value: "\(watch.rating.count)"),
+            WatchDetail(type: .ratedBy, value: "\(watch.rating.count) people"),
             WatchDetail(type: .descriptionTitle, value: ""),
             WatchDetail(type: .descriptionBody, value: watch.description)
             

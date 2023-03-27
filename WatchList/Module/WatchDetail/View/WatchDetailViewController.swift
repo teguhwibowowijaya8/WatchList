@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum WatchDetailSection: Int {
+    case header
+    case body
+}
+
 class WatchDetailViewController: UIViewController {
     
     var productId: Int?
@@ -68,10 +73,6 @@ class WatchDetailViewController: UIViewController {
         setupTableView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     @objc func onBackButtonSelected(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -105,7 +106,6 @@ class WatchDetailViewController: UIViewController {
         watchDetailTableView.delegate = self
         watchDetailTableView.dataSource = self
         watchDetailTableView.separatorStyle = .none
-        watchDetailTableView.sectionHeaderTopPadding = 0
         
         NSLayoutConstraint.activate([
             watchDetailTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -124,20 +124,20 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        switch WatchDetailSection(rawValue: section) {
+        case .header:
             return 1
-        case 1:
+        case .body:
             return watchDetailViewModel?.details?.count ?? 0
-        default:
+        case .none:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.section {
-        case 0:
+        switch WatchDetailSection(rawValue: indexPath.section) {
+        case .header:
             guard let watch = watchDetailViewModel?.watchDetail?.watch,
                   let headerCell = tableView.dequeueReusableCell(withIdentifier: "DetailHeaderTableViewCell", for: indexPath) as? DetailHeaderTableViewCell else {return UITableViewCell()}
             
@@ -151,7 +151,7 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             return headerCell
             
-        case 1:
+        case .body:
             guard let detail = watchDetailViewModel?.details?[indexPath.row],
                   let bodyCell = tableView.dequeueReusableCell(withIdentifier: "DetailBodyTableViewCell", for: indexPath) as? DetailBodyTableViewCell else {return UITableViewCell()}
             
@@ -168,7 +168,7 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             return bodyCell
             
-        default:
+        case .none:
             return UITableViewCell()
         }
     }
