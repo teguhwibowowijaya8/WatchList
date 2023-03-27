@@ -87,7 +87,6 @@ class WatchListTableViewCell: UITableViewCell {
     
     let watchLikedImageView: UIImageView = {
         let watchImageView = UIImageView()
-        watchImageView.image = UIImage(systemName: "heart")
         watchImageView.translatesAutoresizingMaskIntoConstraints = false
         return watchImageView
     }()
@@ -173,6 +172,10 @@ class WatchListTableViewCell: UITableViewCell {
     }
     
     func setupLikedImageView() {
+        guard let watchIsLiked = self.watch?.isLiked else {return}
+        watchLikedImageView.image = UIImage(systemName: watchIsLiked ?
+                                       "heart.fill" : "heart")
+        
         NSLayoutConstraint.activate([
             watchLikedImageView.topAnchor.constraint(equalTo: namePriceStackView.bottomAnchor, constant: 20),
             watchLikedImageView.leftAnchor.constraint(greaterThanOrEqualTo: watchImageView.rightAnchor, constant: 10),

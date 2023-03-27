@@ -9,19 +9,35 @@ import UIKit
 
 class WatchDetailViewController: UIViewController {
     
-    var watchId: Int?
+    var productId: Int?
+    var productName: String?
     var watchDetailViewModel: WatchDetailViewModel?
     
-    let watchDetailTableView: UITableView = {
+    private lazy var watchDetailTableView: UITableView = {
         let watchDetailTableView = UITableView()
         watchDetailTableView.translatesAutoresizingMaskIntoConstraints = false
         return watchDetailTableView
     }()
     
-    let rightBarButtonItem: UIBarButtonItem = {
+    private lazy var rightBarButtonItem: UIBarButtonItem = {
         let rightBarButtonItem = UIBarButtonItem()
         rightBarButtonItem.image = UIImage(named: "Share")
         return rightBarButtonItem
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let backButton = UIButton(type: .system)
+        let backImage = UIImage(systemName: "chevron.left")
+        backButton.setImage(backImage, for: .normal)
+        backButton.setTitle("Back", for: .normal)
+        backButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        backButton.addTarget(self, action: #selector(onBackButtonSelected), for: .touchUpInside)
+        return backButton
+    }()
+    
+    private lazy var leftBarButtonItem: UIBarButtonItem = {
+        let leftBarButtonItem = UIBarButtonItem()
+        return leftBarButtonItem
     }()
     
     override func viewDidLoad() {
@@ -32,15 +48,29 @@ class WatchDetailViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    @objc func onBackButtonSelected(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func setupViewController() {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        backButton.setTitle(" \(productName ?? "Back")", for: .normal)
+        leftBarButtonItem.customView = backButton
+        
+        self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: true)
+        
+        navigationItem.setRightBarButton(rightBarButtonItem, animated: true)
     }
     
     func setupViewModel() {
-        guard let watchId = watchId else { return }
-        watchDetailViewModel = WatchDetailViewModel(watchId: watchId)
+        guard let productId = productId else { return }
+        watchDetailViewModel = WatchDetailViewModel(productId: productId)
         watchDetailViewModel?.delegate = self
         watchDetailViewModel?.getWatchDetail()
     }
@@ -48,9 +78,8 @@ class WatchDetailViewController: UIViewController {
     func setupTableView() {
         view.addSubview(watchDetailTableView)
         
-        watchDetailTableView.register(NamePriceTableViewCell.self, forCellReuseIdentifier: "NamePriceTableViewCell")
-        watchDetailTableView.register(WatchImageTableViewCell.self, forCellReuseIdentifier: "WatchImageTableViewCell")
-        watchDetailTableView.register(WatchDetailTableViewCell.self, forCellReuseIdentifier: "WatchDetailTableViewCell")
+        watchDetailTableView.register(DetailHeaderTableViewCell.self, forCellReuseIdentifier: "DetailHeaderTableViewCell")
+        watchDetailTableView.register(DetailBodyTableViewCell.self, forCellReuseIdentifier: "DetailBodyTableViewCell")
         
         watchDetailTableView.delegate = self
         watchDetailTableView.dataSource = self
@@ -68,11 +97,16 @@ class WatchDetailViewController: UIViewController {
 }
 
 extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0,1:
+        case 0:
             return 1
-        case 2:
+        case 1:
             return watchDetailViewModel?.details?.count ?? 0
         default:
             return 0
@@ -80,72 +114,46 @@ extension WatchDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let watch = watchDetailViewModel?.watchDetail?.watch else {return UITableViewCell()}
         
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "WatchImageTableViewCell", for: indexPath) as? WatchImageTableViewCell else {return UITableViewCell()}
+            guard let watch = watchDetailViewModel?.watchDetail?.watch,
+                  let headerCell = tableView.dequeueReusableCell(withIdentifier: "DetailHeaderTableViewCell", for: indexPath) as? DetailHeaderTableViewCell else {return UITableViewCell()}
             
-            cell.setupCell(imageUrlString: watch.imageUrlString, watchType: watch.category)
+            headerCell.setupCell(
+                imageUrlString: watch.imageUrlString,
+                productType: watch.category,
+                productName: watch.name,
+                productPrice: watch.priceString,
+                isLiked: watch.isLiked
+            )
             
-            return cell
+            return headerCell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NamePriceTableViewCell", for: indexPath) as? NamePriceTableViewCell else {return UITableViewCell()}
-            
-            cell.setupCell(watchName: watch.name, watchPrice: watch.priceString)
-            
-            return cell
-            
-        case 2:
             guard let detail = watchDetailViewModel?.details?[indexPath.row],
-                let cell = tableView.dequeueReusableCell(withIdentifier: "WatchDetailTableViewCell", for: indexPath) as? WatchDetailTableViewCell else {return UITableViewCell()}
-            
-            if indexPath.row == 0 {
-                cell.showIsLikedButton = true
-            } else { cell.showIsLikedButton = false }
-            
+                let bodyCell = tableView.dequeueReusableCell(withIdentifier: "DetailBodyTableViewCell", for: indexPath) as? DetailBodyTableViewCell else {return UITableViewCell()}
             
             if detail.type == .descriptionBody {
-                cell.showDescription = true
-                cell.detailProductText = detail.value
+                bodyCell.showDescription = true
+                bodyCell.descriptionText = detail.value
             } else {
-                cell.showDescription = false
-                cell.typeDetailText = detail.type.rawValue
-                cell.detailProductText = detail.value
+                bodyCell.showDescription = false
+                bodyCell.detailTypeTitleText = detail.type.rawValue
+                bodyCell.detailTypeValueText = detail.value
             }
             
-            cell.setupCell()
+            bodyCell.setupCell()
             
-            return cell
+            return bodyCell
             
         default:
             return UITableViewCell()
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 2 {
-            let watchDetailHeaderView = WatchDetailHeaderView()
-            watchDetailHeaderView.setupHeaderView()
-            
-            return watchDetailHeaderView
-        }
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 {
-            return 20
-        } else {return 0}
     }
 }
 

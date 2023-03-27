@@ -14,7 +14,7 @@ protocol WatchDetailProtocol {
 class WatchDetailViewModel {
     var watchDetail: WatchDetails?
     var details: [WatchDetail]?
-    var watchId: Int
+    var productId: Int
     var delegate: WatchDetailProtocol?
     var errorMessage: String?
     
@@ -22,12 +22,11 @@ class WatchDetailViewModel {
     private var getAPIService: GetAPIProtocol
     
     init(
-        watchId: Int,
+        productId: Int,
         getAPIService: GetAPIProtocol = GetAPIService()
     ) {
-        self.watchId = watchId
-        self.urlString = "\(Constant.baseUrlString)/\(self.watchId)"
-        print(urlString)
+        self.productId = productId
+        self.urlString = "\(Constant.baseUrlString)/\(self.productId)"
         self.getAPIService = getAPIService
     }
     
@@ -36,7 +35,6 @@ class WatchDetailViewModel {
         self.getAPIService.setUrl(with: urlString)
         getAPIService.getAPI(model: Watch.self) { result, errorMessage in
             if let result = result {
-                print("result: \(result)")
                 self.watchDetail = WatchDetails(watch: result)
                 self.details = self.watchDetail?.getDetails()
                 self.delegate?.onGetWatchDetailCompleted()

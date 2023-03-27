@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7AB4AEA329D053E2004D3DFD /* WatchDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AEA229D053E2004D3DFD /* WatchDetail.swift */; };
 		7AB4AEA629D05A2E004D3DFD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AEA529D05A2E004D3DFD /* Constant.swift */; };
+		7AB4AEA929D12AEF004D3DFD /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 7AB4AEA829D12AEF004D3DFD /* SkeletonView */; };
+		7AB4AEAC29D1487A004D3DFD /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AEAB29D1487A004D3DFD /* DetailImageView.swift */; };
 		7AC6AC0F29CD785B0014CAF7 /* WatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC0E29CD785B0014CAF7 /* WatchListViewModel.swift */; };
 		7AC6AC1129CD78780014CAF7 /* WatchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC1029CD78780014CAF7 /* WatchDetailViewModel.swift */; };
 		7AC6AC1429CD7ACB0014CAF7 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC6AC1329CD7ACB0014CAF7 /* Rating.swift */; };
@@ -26,10 +28,10 @@
 		7ADC47E129A32CE000B79E69 /* WatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47E029A32CE000B79E69 /* WatchListTableViewCell.swift */; };
 		7ADC47E329A32D4B00B79E69 /* Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47E229A32D4B00B79E69 /* Watch.swift */; };
 		7ADC47E729A3543C00B79E69 /* WatchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47E629A3543C00B79E69 /* WatchDetailViewController.swift */; };
-		7ADC47E929A3634D00B79E69 /* NamePriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47E829A3634D00B79E69 /* NamePriceTableViewCell.swift */; };
-		7ADC47EB29A3635E00B79E69 /* WatchImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EA29A3635E00B79E69 /* WatchImageTableViewCell.swift */; };
-		7ADC47ED29A3636F00B79E69 /* WatchDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EC29A3636F00B79E69 /* WatchDetailTableViewCell.swift */; };
-		7ADC47EF29A36F3E00B79E69 /* WatchDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EE29A36F3E00B79E69 /* WatchDetailHeaderView.swift */; };
+		7ADC47E929A3634D00B79E69 /* DetailTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47E829A3634D00B79E69 /* DetailTitleView.swift */; };
+		7ADC47EB29A3635E00B79E69 /* DetailHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EA29A3635E00B79E69 /* DetailHeaderTableViewCell.swift */; };
+		7ADC47ED29A3636F00B79E69 /* DetailBodyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EC29A3636F00B79E69 /* DetailBodyTableViewCell.swift */; };
+		7ADC47EF29A36F3E00B79E69 /* DetailSubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47EE29A36F3E00B79E69 /* DetailSubtitleView.swift */; };
 		7ADC47F129A4609200B79E69 /* StuffStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ADC47F029A4609200B79E69 /* StuffStoryboard.storyboard */; };
 		7ADC47F329A460BA00B79E69 /* StuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC47F229A460BA00B79E69 /* StuffViewController.swift */; };
 		7AFA0B9329D01ED900789A2E /* WatchDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA0B9229D01ED900789A2E /* WatchDetails.swift */; };
@@ -39,6 +41,7 @@
 /* Begin PBXFileReference section */
 		7AB4AEA229D053E2004D3DFD /* WatchDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetail.swift; sourceTree = "<group>"; };
 		7AB4AEA529D05A2E004D3DFD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		7AB4AEAB29D1487A004D3DFD /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 		7AC6AC0E29CD785B0014CAF7 /* WatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListViewModel.swift; sourceTree = "<group>"; };
 		7AC6AC1029CD78780014CAF7 /* WatchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailViewModel.swift; sourceTree = "<group>"; };
 		7AC6AC1329CD7ACB0014CAF7 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -58,10 +61,10 @@
 		7ADC47E029A32CE000B79E69 /* WatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListTableViewCell.swift; sourceTree = "<group>"; };
 		7ADC47E229A32D4B00B79E69 /* Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch.swift; sourceTree = "<group>"; };
 		7ADC47E629A3543C00B79E69 /* WatchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailViewController.swift; sourceTree = "<group>"; };
-		7ADC47E829A3634D00B79E69 /* NamePriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamePriceTableViewCell.swift; sourceTree = "<group>"; };
-		7ADC47EA29A3635E00B79E69 /* WatchImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchImageTableViewCell.swift; sourceTree = "<group>"; };
-		7ADC47EC29A3636F00B79E69 /* WatchDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailTableViewCell.swift; sourceTree = "<group>"; };
-		7ADC47EE29A36F3E00B79E69 /* WatchDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetailHeaderView.swift; sourceTree = "<group>"; };
+		7ADC47E829A3634D00B79E69 /* DetailTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTitleView.swift; sourceTree = "<group>"; };
+		7ADC47EA29A3635E00B79E69 /* DetailHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		7ADC47EC29A3636F00B79E69 /* DetailBodyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBodyTableViewCell.swift; sourceTree = "<group>"; };
+		7ADC47EE29A36F3E00B79E69 /* DetailSubtitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSubtitleView.swift; sourceTree = "<group>"; };
 		7ADC47F029A4609200B79E69 /* StuffStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StuffStoryboard.storyboard; sourceTree = "<group>"; };
 		7ADC47F229A460BA00B79E69 /* StuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewController.swift; sourceTree = "<group>"; };
 		7AFA0B9229D01ED900789A2E /* WatchDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDetails.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AB4AEA929D12AEF004D3DFD /* SkeletonView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +89,16 @@
 				7AB4AEA529D05A2E004D3DFD /* Constant.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		7AB4AEAA29D1483E004D3DFD /* DetailHeader */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4AEAB29D1487A004D3DFD /* DetailImageView.swift */,
+				7ADC47E829A3634D00B79E69 /* DetailTitleView.swift */,
+				7ADC47EE29A36F3E00B79E69 /* DetailSubtitleView.swift */,
+			);
+			path = DetailHeader;
 			sourceTree = "<group>";
 		};
 		7AC6AC0329CD76E00014CAF7 /* Storyboard */ = {
@@ -144,10 +158,9 @@
 		7AC6AC0B29CD780D0014CAF7 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				7ADC47E829A3634D00B79E69 /* NamePriceTableViewCell.swift */,
-				7ADC47EA29A3635E00B79E69 /* WatchImageTableViewCell.swift */,
-				7ADC47EC29A3636F00B79E69 /* WatchDetailTableViewCell.swift */,
-				7ADC47EE29A36F3E00B79E69 /* WatchDetailHeaderView.swift */,
+				7AB4AEAA29D1483E004D3DFD /* DetailHeader */,
+				7ADC47EA29A3635E00B79E69 /* DetailHeaderTableViewCell.swift */,
+				7ADC47EC29A3636F00B79E69 /* DetailBodyTableViewCell.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -213,7 +226,6 @@
 				7AC6AC1229CD78B60014CAF7 /* Networking */,
 				7ADC47DD29A3225300B79E69 /* Model */,
 				7ADC47DC29A3223C00B79E69 /* Module */,
-				7ADC47DB29A3222600B79E69 /* Controller */,
 				7AC6AC0329CD76E00014CAF7 /* Storyboard */,
 				7ADC47F029A4609200B79E69 /* StuffStoryboard.storyboard */,
 				7ADC47F229A460BA00B79E69 /* StuffViewController.swift */,
@@ -229,13 +241,6 @@
 				7ADC47C829A3218100B79E69 /* SceneDelegate.swift */,
 			);
 			path = MainDelegate;
-			sourceTree = "<group>";
-		};
-		7ADC47DB29A3222600B79E69 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		7ADC47DC29A3223C00B79E69 /* Module */ = {
@@ -290,6 +295,9 @@
 			dependencies = (
 			);
 			name = WatchList;
+			packageProductDependencies = (
+				7AB4AEA829D12AEF004D3DFD /* SkeletonView */,
+			);
 			productName = WatchList;
 			productReference = 7ADC47C329A3218100B79E69 /* WatchList.app */;
 			productType = "com.apple.product-type.application";
@@ -318,6 +326,9 @@
 				Base,
 			);
 			mainGroup = 7ADC47BA29A3218100B79E69;
+			packageReferences = (
+				7AB4AEA729D12AEF004D3DFD /* XCRemoteSwiftPackageReference "SkeletonView" */,
+			);
 			productRefGroup = 7ADC47C429A3218100B79E69 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -357,16 +368,17 @@
 				7ADC47C729A3218100B79E69 /* AppDelegate.swift in Sources */,
 				7AC6AC1C29CD89CC0014CAF7 /* GetImageService.swift in Sources */,
 				7AB4AEA629D05A2E004D3DFD /* Constant.swift in Sources */,
-				7ADC47ED29A3636F00B79E69 /* WatchDetailTableViewCell.swift in Sources */,
+				7ADC47ED29A3636F00B79E69 /* DetailBodyTableViewCell.swift in Sources */,
 				7AC6AC1829CD80740014CAF7 /* ParseDataService.swift in Sources */,
 				7AC6AC1429CD7ACB0014CAF7 /* Rating.swift in Sources */,
 				7AC6AC1A29CD81E50014CAF7 /* GetAPIService.swift in Sources */,
-				7ADC47EF29A36F3E00B79E69 /* WatchDetailHeaderView.swift in Sources */,
+				7ADC47EF29A36F3E00B79E69 /* DetailSubtitleView.swift in Sources */,
 				7ADC47E329A32D4B00B79E69 /* Watch.swift in Sources */,
+				7AB4AEAC29D1487A004D3DFD /* DetailImageView.swift in Sources */,
 				7ADC47C929A3218100B79E69 /* SceneDelegate.swift in Sources */,
-				7ADC47E929A3634D00B79E69 /* NamePriceTableViewCell.swift in Sources */,
+				7ADC47E929A3634D00B79E69 /* DetailTitleView.swift in Sources */,
 				7AC6AC0F29CD785B0014CAF7 /* WatchListViewModel.swift in Sources */,
-				7ADC47EB29A3635E00B79E69 /* WatchImageTableViewCell.swift in Sources */,
+				7ADC47EB29A3635E00B79E69 /* DetailHeaderTableViewCell.swift in Sources */,
 				7AFA0B9329D01ED900789A2E /* WatchDetails.swift in Sources */,
 				7ADC47E729A3543C00B79E69 /* WatchDetailViewController.swift in Sources */,
 			);
@@ -586,6 +598,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7AB4AEA729D12AEF004D3DFD /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7AB4AEA829D12AEF004D3DFD /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AB4AEA729D12AEF004D3DFD /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7ADC47BB29A3218100B79E69 /* Project object */;
 }

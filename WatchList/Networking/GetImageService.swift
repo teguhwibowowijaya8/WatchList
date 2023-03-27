@@ -21,6 +21,7 @@ struct GetImageService: GetImageProtocol {
         of urlString: String?,
         onCompletion: @escaping (UIImage?, String?) -> Void
     ) {
+        
         fetchDataService.fetchData(with: urlString) { response in
             switch response {
             case .success(let data):

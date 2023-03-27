@@ -115,8 +115,8 @@ extension WatchListViewController: WatchListDelegate {
 extension WatchListViewController: WatchListTableCellDelegate {
     func onWatchCellClicked(on watch: Watch) {
         let watchDetailVC = WatchDetailViewController()
-        watchDetailVC.watchId = watch.id
-        navigationItem.backButtonTitle = watch.name
+        watchDetailVC.productId = watch.id
+        watchDetailVC.productName = watch.name
         navigationController?.pushViewController(watchDetailVC, animated: true)
         
 //        let storyboard = UIStoryboard(name: "StuffStoryboard", bundle: nil)
